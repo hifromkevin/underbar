@@ -77,17 +77,65 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
-    
+    var trueStatements = [];
+
+    _.each(collection, function(item, index) {
+      if(test(item)){
+        trueStatements.push(item);
+      }
+    });
+
+    return trueStatements;
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    return _.filter(collection, function(item){
+      return !test(item);
+    });
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
+    var trueStatements = [];
+    var trueHelper = [];
+    //SORTED arrays
+    //Iterate through array. It will set conditions for each element of array
+    //Loop through our array, and compare to trueStatements
+      //If there is a unique  value, push it to trueHelper
+    //Return true helper
+    if(isSorted){
+      var previous;
+      _.each(array, function(item){
+        trueStatements.push(iterator(item));
+      });
+
+      trueStatements.forEach(function(uni, index){
+        if(trueStatements[index - 1] !== uni){
+          trueHelper.push(array[index]);
+        }
+      });
+      return trueHelper;
+    } else {
+      _.each(array, function(item){
+        if(trueStatements.length < 1){
+          trueStatements.push(item);
+        } else {
+          var flag = true;
+          trueStatements.forEach(function(truths){
+            if(item === truths){
+              flag = false;
+            }
+          });
+          if(flag){
+            trueStatements.push(item);
+          }
+        }
+      });
+    return trueStatements;
+    }
   };
 
 
@@ -96,6 +144,12 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    var mappedArray = [];
+    _.each(collection, function(item){
+      mappedArray.push(iterator(item));
+    });
+
+    return mappedArray;
   };
 
   /*
@@ -137,6 +191,9 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    _.each(collection, function(element){
+      iterator(accumulator, element);
+    });
   };
 
   // Determine if the array or object contains a given value (using `===`).
