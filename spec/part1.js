@@ -505,7 +505,7 @@
 
         _.reduce([1,2,3,4], function(memo, item) {
           orderTraversed.push(item);
-          return memo;
+          return orderTraversed; //was return memo
         }, 10);
 
         expect(orderTraversed).to.eql([1,2,3,4]);
