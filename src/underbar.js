@@ -112,7 +112,7 @@
         trueStatements.push(iterator(item));
       });
 
-      trueStatements.forEach(function(uni, index){
+      _.each(trueStatements, function(uni, index){
         if(trueStatements[index - 1] !== uni){
           trueHelper.push(array[index]);
         }
@@ -124,7 +124,7 @@
           trueStatements.push(item);
         } else {
           var flag = true;
-          trueStatements.forEach(function(truths){
+          _.each(trueStatements, function(truths){
             if(item === truths){
               flag = false;
             }
@@ -221,6 +221,7 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
@@ -349,6 +350,7 @@
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
