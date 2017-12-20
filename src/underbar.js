@@ -144,7 +144,7 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
-    
+
     var mappedArray = [];
     _.each(collection, function(item){
       mappedArray.push(iterator(item));
@@ -222,13 +222,46 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
-
+    var flag = true;
+    if(iterator === undefined){
+      for(var i = 0; i < collection.length; i++){
+        if(!collection[i]){
+          flag = false;
+        }
+      }
+    } else {
+      for(var i = 0; i < collection.length; i++){
+        if(!iterator(collection[i])){
+          flag = false;
+        }
+      }
+    }
+    return flag;
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    var counter = 0;
+    if(iterator === undefined){
+      for(var i = 0; i < collection.length; i++){
+        if(!collection[i]){
+          counter++;
+        }
+      }
+    } else {
+      for(var i = 0; i < collection.length; i++){
+        if(!iterator(collection[i])){
+          counter++;
+        }
+      }
+    }
+    if(counter === collection.length){
+      return false;
+    } else {
+      return true;
+    }
   };
 
 
@@ -250,12 +283,43 @@
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
-  _.extend = function(obj) {
+  _.extend = function(obj, source, source2) {
+    var prop;
+    for(prop in source){
+      obj[prop] = source[prop];
+    }
+    if(source2){
+      for(prop in source2){
+        obj[prop] = source2[prop];
+      }
+    }
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
-  _.defaults = function(obj) {
+  _.defaults = function(obj, source, source2, source3) {
+    var prop;
+    for(prop in source){
+      if(obj[prop] === undefined){
+        obj[prop] = source[prop];
+      }
+    }
+    if(source2){
+      for(prop in source2){
+        if(obj[prop] === undefined){
+          obj[prop] = source2[prop];
+        }
+      }
+    }
+    if(source3){
+      for(prop in source3){
+        if(obj[prop] === undefined){
+          obj[prop] = source3[prop];
+        }
+      }
+    }
+    return obj;   
   };
 
 
