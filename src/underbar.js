@@ -406,7 +406,7 @@
           return result;
         } else {
           result = func.apply(this, arguments);
-          calledFunction['func'] = result;    
+          calledFunction['func'] = result; 
           return result;  
         }
       }
@@ -432,7 +432,18 @@
   // The arguments for the original function are passed after the wait
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
-  _.delay = function(func, wait) {
+  _.delay = function(func, wait, arg1, arg2) {
+    // return setTimeout(func, wait);
+    // return window.setTimeout(func,wait);
+    return setTimeout(function(){
+      if(arg2){
+        return func(arg1, arg2);
+      } else if (arg1) {
+        return func(arg1);
+      } else {
+        return func.apply(this, arguments);
+      }
+    }, wait);
 
   };
 
@@ -448,6 +459,30 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+
+    var newArr = [];
+    var arrLen = array.length;
+
+    while(arrLen > newArr.length){
+      var n = Math.floor(Math.random() * arrLen);
+      var arrSlice = array.slice(n, (n + 1));
+      var flag = true;
+      if(newArr.length > 0){
+        _.each(newArr, (element) => {
+          if(element === arrSlice[0]){
+            flag = false;
+          }
+        });
+      }
+
+      if(flag){
+        newArr.push(arrSlice[0]);
+      } else {
+        flag = true;
+      }
+    }
+    console.log(newArr);
+    return newArr;
   };
 
 
