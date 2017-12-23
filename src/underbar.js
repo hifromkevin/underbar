@@ -363,6 +363,67 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+
+    /* This function works, but was copied from 
+    https://repl.it/@johntduong/Underscorejs-Memoize */
+    // var cache = {};
+    // var recur = function() {
+    // var result = Array.prototype.slice.call(arguments);
+    // if (!cache.hasOwnProperty(result)) {
+    //   cache[result] = func.apply(this, arguments);
+    // }
+    //   return cache[result];
+    // };
+    //   return recur;
+
+    /* end function from internet */
+
+
+
+      // var result;
+      // var calledFunction = {};
+
+      // return function(){
+      //   if(calledFunction['func']){
+      //     return result;
+      //   } else {
+      //     result = func.apply(this, arguments);
+      //     calledFunction[func] = arguments;
+
+      //     console.log('function', func);  
+      //     console.log('arguments', arguments); 
+      //     console.log('result', func.apply(this, arguments)) 
+      //     return result;  
+      //   }
+      // }
+
+/* doesn't pass if values are different */
+      var result;
+      var calledFunction = {};
+
+      return function(){
+        if(calledFunction['func']){
+          return result;
+        } else {
+          result = func.apply(this, arguments);
+          calledFunction['func'] = result;    
+          return result;  
+        }
+      }
+/* end doesn't pass if values are different */
+
+      // var result;
+      // var calledFunction = {};
+
+      // return function(){
+      //   if(calledFunction[func]){
+      //     return result;
+      //   } else {
+      //     result = func.apply(this, arguments);
+      //     calledFunction[func] = result;    
+      //     return result;  
+      //   }
+      // }
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -372,6 +433,7 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+
   };
 
 

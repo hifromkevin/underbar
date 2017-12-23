@@ -401,7 +401,8 @@
     });
 
     describe('memoize', function() {
-      var add, memoAdd;
+      var add;
+      var memoAdd;
 
       beforeEach(function() {
         add = function(a, b) {
