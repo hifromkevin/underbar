@@ -500,6 +500,7 @@
         _.shuffle([1, 2, 3, 4])
       })
 
+
       it('should not modify the original object', function() {
         var numbers = [4, 5, 6];
         var shuffled = _.shuffle(numbers).sort();

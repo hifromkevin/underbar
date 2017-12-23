@@ -224,17 +224,17 @@
     // TIP: Try re-using reduce() here.
     var flag = true;
     if(iterator === undefined){
-      for(var i = 0; i < collection.length; i++){
-        if(!collection[i]){
+      _.each(collection, (element) => {
+        if(!element){
           flag = false;
         }
-      }
+      });
     } else {
-      for(var i = 0; i < collection.length; i++){
-        if(!iterator(collection[i])){
+      _.each(collection, (element) => {
+        if(!iterator(element)){
           flag = false;
-        }
-      }
+        }  
+      });
     }
     return flag;
   };
@@ -245,17 +245,17 @@
     // TIP: There's a very clever way to re-use every() here.
     var counter = 0;
     if(iterator === undefined){
-      for(var i = 0; i < collection.length; i++){
-        if(!collection[i]){
+      _.each(collection, (element) => {
+        if(!element){
           counter++;
-        }
-      }
+        }  
+      });
     } else {
-      for(var i = 0; i < collection.length; i++){
-        if(!iterator(collection[i])){
+      _.each(collection, (element) => {
+        if(!iterator(element)){
           counter++;
         }
-      }
+      });
     }
     if(counter === collection.length){
       return false;
